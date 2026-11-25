@@ -1,0 +1,34 @@
+# Local development stack. Services are added as the project needs them:
+# Prefect (Day 2), MLflow (Day 4), Prometheus + Grafana (Week 2).
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: triagent
+      POSTGRES_PASSWORD: triagent
+      POSTGRES_DB: triagent
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U triagent -d triagent"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      TRIAGENT_DATABASE_URL: postgresql://triagent:triagent@postgres:5432/triagent
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:

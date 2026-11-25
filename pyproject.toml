@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.165.0",
+    "httpx2>=2.16.2",
     "pydantic-settings>=2.16.3",
     "uvicorn[standard]>=0.54.0",
 ]
@@ -16,12 +17,16 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
-    "httpx2>=2.16.2",
     "mypy>=2.4.1",
     "pre-commit>=4.7.0",
     "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
     "ruff>=0.17.6",
+]
+eda = [
+    "jupyterlab>=4.6.6",
+    "matplotlib>=3.11.2",
+    "pandas>=3.1.1",
 ]
 
 [tool.ruff]

@@ -7,9 +7,8 @@ import argparse
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
-from triagent.data.github_client import GitHubClient, RateLimitError
-
 from triagent.config import get_settings
+from triagent.data.github_client import GitHubClient, RateLimitError
 
 
 def main() -> None:
